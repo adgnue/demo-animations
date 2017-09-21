@@ -1,0 +1,35 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			 xmlns:tools="http://schemas.android.com/tools"
+			 android:layout_width="match_parent"
+			 android:layout_height="match_parent"
+			 tools:context="de.handler.mobile.constraintlayout.FirstFragment">
+
+	<de.handler.mobile.constraintlayout.BubbleView
+		android:id="@+id/fragment_first_bubble"
+		android:transitionName="@string/transition_name_bubble"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"/>
+
+	<Button
+		android:id="@+id/fragment_first_replay_button"
+		android:text="Replay"
+		style="@style/Widget.AppCompat.Button.Borderless"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:background="?attr/selectableItemBackgroundBorderless"
+		android:layout_marginBottom="16dp"
+		android:layout_gravity="bottom|start"/>
+
+
+	<Button
+		android:id="@+id/fragment_first_switch_fragment_button"
+		android:text="Switch"
+		style="@style/Widget.AppCompat.Button.Borderless"
+		android:transitionName="@string/transition_name_button"
+		android:background="?attr/selectableItemBackgroundBorderless"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="16dp"
+		android:layout_gravity="end|bottom"/>
+
+</FrameLayout>
