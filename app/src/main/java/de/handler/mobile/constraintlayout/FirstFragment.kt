@@ -14,9 +14,11 @@ import de.handler.mobile.example_constraintlayout.R
 class FirstFragment : Fragment() {
 	private val transitionListener: Transition.TransitionListener = object : Transition.TransitionListener {
 		override fun onTransitionEnd(transition: Transition) {
+			transition.removeListener(this)
 			bubble.shrink(object : Transition.TransitionListener {
 				override fun onTransitionEnd(transition1: Transition?) {
 					transitionRunning = false
+					transition.removeListener(this)
 				}
 
 				override fun onTransitionResume(transition1: Transition?) {}
