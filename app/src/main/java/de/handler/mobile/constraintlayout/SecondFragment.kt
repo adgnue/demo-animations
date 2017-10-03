@@ -1,5 +1,6 @@
 package de.handler.mobile.constraintlayout
 
+import android.content.Context
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.constraint.ConstraintSet
@@ -14,7 +15,7 @@ import android.widget.Button
 import de.handler.mobile.example_constraintlayout.R
 
 class SecondFragment : Fragment() {
-	private lateinit var bubble: BubbleView
+    private lateinit var bubble: BubbleView
     private lateinit var constraintLayout: ConstraintLayout
 
     private val originalConstraints = ConstraintSet()
@@ -25,21 +26,27 @@ class SecondFragment : Fragment() {
         val transitionSet = sharedElementEnterTransition as TransitionSet
         transitionSet.addListener(object : TransitionEndListener() {
             override fun onTransitionEnd(transition: Transition) {
+                // augment right button margin animation
+                val animatedConstraints = ConstraintSet()
+                animatedConstraints.clone(constraintLayout)
+                TransitionManager.beginDelayedTransition(constraintLayout)
+                animatedConstraints.setMargin(R.id.fragment_second_switch_fragment_button, ConstraintSet.END, 128)
+                animatedConstraints.applyTo(constraintLayout)
             }
         })
     }
 
-	override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		return inflater!!.inflate(R.layout.fragment_second, container, false)
-	}
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater!!.inflate(R.layout.fragment_second, container, false)
+    }
 
-	override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-		super.onViewCreated(view, savedInstanceState)
-		if (view == null) {
-			return
-		}
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (view == null) {
+            return
+        }
 
-		bubble = view.findViewById(R.id.fragment_second_bubble)
+        bubble = view.findViewById(R.id.fragment_second_bubble)
         val switchButton = view.findViewById<Button>(R.id.fragment_second_switch_fragment_button)
         switchButton.setOnClickListener({ (context as MainActivity).switchFragments(FirstFragment(), arrayOf(bubble, switchButton)) })
         constraintLayout = view.findViewById(R.id.fragment_second_constraint_layout)
@@ -47,5 +54,5 @@ class SecondFragment : Fragment() {
         // preserve original unanimated constraint state
         originalConstraints.clone(constraintLayout)
     }
-	}
+    }
 }
