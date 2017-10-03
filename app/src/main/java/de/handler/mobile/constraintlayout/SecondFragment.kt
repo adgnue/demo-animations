@@ -24,8 +24,8 @@ class SecondFragment : BackAwareFragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         // listen to the end of the SharedElementTransition - unfortunately it can only be listened to it here
-        val transitionSet = sharedElementEnterTransition as TransitionSet
-        transitionSet.addListener(object : TransitionEndListener() {
+        val transitionSet = sharedElementEnterTransition as TransitionSet?
+        transitionSet?.addListener(object : TransitionEndListener() {
             override fun onTransitionEnd(transition: Transition) {
                 val animatedConstraints = ConstraintSet()
                 animatedConstraints.clone(constraintLayout)
