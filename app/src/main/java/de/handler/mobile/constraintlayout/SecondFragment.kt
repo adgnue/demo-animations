@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.constraint.ConstraintSet
+import android.support.v4.content.ContextCompat
 import android.transition.AutoTransition
 import android.transition.Transition
 import android.transition.TransitionManager
@@ -13,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import de.handler.mobile.example_constraintlayout.R
+import kotlinx.android.synthetic.main.fragment_second.*
 
 class SecondFragment : BackAwareFragment() {
     private lateinit var circle: CircleView
@@ -34,7 +36,13 @@ class SecondFragment : BackAwareFragment() {
 //                animatedConstraints.setMargin(R.id.fragment_second_switch_fragment_button, ConstraintSet.END, 128)
 
                 // center button vertically animation
-                animatedConstraints.centerVertically(R.id.fragment_second_switch_fragment_button, R.id.fragment_second_circle)
+//                animatedConstraints.centerVertically(R.id.fragment_second_switch_fragment_button, R.id.fragment_second_circle)
+
+                // grow width & height animation
+                fragment_second_switch_fragment_button?.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorPrimary))
+                animatedConstraints.constrainWidth(R.id.fragment_second_switch_fragment_button, 1500)
+                animatedConstraints.constrainWidth(R.id.fragment_second_circle, 2500)
+                animatedConstraints.constrainHeight(R.id.fragment_second_circle, 2500)
 
                 animatedConstraints.applyTo(constraintLayout)
             }
