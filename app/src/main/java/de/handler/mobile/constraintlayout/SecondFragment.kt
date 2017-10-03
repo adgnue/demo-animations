@@ -14,7 +14,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import de.handler.mobile.example_constraintlayout.R
 
-class SecondFragment : Fragment() {
+class SecondFragment : BackAwareFragment() {
     private lateinit var bubble: BubbleView
     private lateinit var constraintLayout: ConstraintLayout
 
@@ -54,5 +54,17 @@ class SecondFragment : Fragment() {
         // preserve original unanimated constraint state
         originalConstraints.clone(constraintLayout)
     }
+
+    override fun onBackPressed(onBackPressedListener: OnBackPressedListener?) {
+        // Create custom standard transition to be able to listen to its end
+        val transition = AutoTransition()
+        transition.addListener(object : TransitionEndListener() {
+            override fun onTransitionEnd(transition: Transition) {
+                onBackPressedListener?.onBackPressed()
+            }
+        })
+
+        TransitionManager.beginDelayedTransition(constraintLayout, transition)
+        originalConstraints.applyTo(constraintLayout)
     }
 }

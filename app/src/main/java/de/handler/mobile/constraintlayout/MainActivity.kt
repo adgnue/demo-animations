@@ -12,39 +12,54 @@ import de.handler.mobile.example_constraintlayout.R
 
 class MainActivity : AppCompatActivity() {
 
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_main)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
-		supportFragmentManager.beginTransaction()
-				.replace(R.id.activity_main_fragment_container, FirstFragment())
-				.commit()
-	}
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.activity_main_fragment_container, FirstFragment())
+                .commit()
+    }
 
-	fun switchFragments(fragment: Fragment, animationViews: Array<View>) {
-		// Don't start another transaction if the fragment is already on the backstack --> prevent same fragment instances on the stack
-		// Works only for two fragments of course
-		if (supportFragmentManager.backStackEntryCount > 0) {
-			supportFragmentManager.popBackStack()
-			return
-		}
+    override fun onBackPressed() {
+        val fragment = supportFragmentManager.findFragmentById(R.id.activity_main_fragment_container)
+        if (fragment is BackAwareFragment) {
+            fragment.onBackPressed(object : BackAwareFragment.OnBackPressedListener {
+                override fun onBackPressed(handled: Boolean) {
+                    if (!handled) {
+                        super@MainActivity.onBackPressed()
+                    }
+                }
+            })
+        } else {
+            super.onBackPressed()
+        }
+    }
 
-		val bubbleTransition = TransitionSet()
-				.addTransition(ChangeBounds())
-				.addTransition(ChangeTransform())
-				.addTransition(ChangeClipBounds())
+    fun switchFragments(fragment: Fragment, animationViews: Array<View>) {
+        // Don't start another transaction if the fragment is already on the backstack --> prevent same fragment instances on the stack
+        // Works only for two fragments of course
+        if (supportFragmentManager.backStackEntryCount > 0) {
+            supportFragmentManager.popBackStack()
+            return
+        }
 
-		fragment.sharedElementEnterTransition = bubbleTransition
-		fragment.sharedElementReturnTransition = bubbleTransition
+        val bubbleTransition = TransitionSet()
+                .addTransition(ChangeBounds())
+                .addTransition(ChangeTransform())
+                .addTransition(ChangeClipBounds())
 
-		val transaction = supportFragmentManager.beginTransaction()
-		transaction.replace(R.id.activity_main_fragment_container, fragment)
-		transaction.addToBackStack(fragment.javaClass.name)
+        fragment.sharedElementEnterTransition = bubbleTransition
+        fragment.sharedElementReturnTransition = bubbleTransition
 
-		for (animationView in animationViews) {
-			transaction.addSharedElement(animationView, animationView.transitionName)
-		}
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.activity_main_fragment_container, fragment)
+        transaction.addToBackStack(fragment.javaClass.name)
 
-		transaction.commit()
-	}
+        for (animationView in animationViews) {
+            transaction.addSharedElement(animationView, animationView.transitionName)
+        }
+
+        transaction.commit()
+    }
 }
