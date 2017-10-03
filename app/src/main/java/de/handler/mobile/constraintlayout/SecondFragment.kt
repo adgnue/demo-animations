@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.constraint.ConstraintSet
+import android.support.v4.content.ContextCompat
 import android.transition.AutoTransition
 import android.transition.Transition
 import android.transition.TransitionManager
@@ -13,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import de.handler.mobile.example_constraintlayout.R
+import kotlinx.android.synthetic.main.fragment_second.*
 
 class SecondFragment : BackAwareFragment() {
     private lateinit var circle: CircleView
@@ -43,10 +45,26 @@ class SecondFragment : BackAwareFragment() {
 //                animatedConstraints.constrainHeight(R.id.fragment_second_circle, 2500)
 
                 // center in circle animation
+//                animatedConstraints.connect(
+//                        R.id.fragment_second_switch_fragment_button, ConstraintSet.START,
+//                        R.id.fragment_second_constraint_layout, ConstraintSet.START, 16)
+//                animatedConstraints.centerVertically(R.id.fragment_second_switch_fragment_button, R.id.fragment_second_circle)
+
+                // grow button to full screen size
+                fragment_second_switch_fragment_button?.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorPrimary))
+                animatedConstraints.clear(R.id.fragment_second_switch_fragment_button)
                 animatedConstraints.connect(
                         R.id.fragment_second_switch_fragment_button, ConstraintSet.START,
-                        R.id.fragment_second_constraint_layout, ConstraintSet.START, 16)
-                animatedConstraints.centerVertically(R.id.fragment_second_switch_fragment_button, R.id.fragment_second_circle)
+                        R.id.fragment_second_constraint_layout, ConstraintSet.START, 0)
+                animatedConstraints.connect(
+                        R.id.fragment_second_switch_fragment_button, ConstraintSet.END,
+                        R.id.fragment_second_constraint_layout, ConstraintSet.END, 0)
+                animatedConstraints.connect(
+                        R.id.fragment_second_switch_fragment_button, ConstraintSet.TOP,
+                        R.id.fragment_second_constraint_layout, ConstraintSet.TOP, 0)
+                animatedConstraints.connect(
+                        R.id.fragment_second_switch_fragment_button, ConstraintSet.BOTTOM,
+                        R.id.fragment_second_constraint_layout, ConstraintSet.BOTTOM, 0)
 
                 animatedConstraints.applyTo(constraintLayout)
             }
