@@ -2,6 +2,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/fragment_second_constraint_layout"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	tools:context="de.handler.mobile.constraintlayout.FirstFragment">
@@ -26,15 +27,5 @@
 		android:text="Switch"
 		android:transitionName="@string/transition_name_button"
 		app:layout_constraintEnd_toEndOf="@+id/fragment_second_bubble"/>
-
-
-	<Button
-		android:id="@+id/fragment_second_start_animation_button_button"
-		style="@style/Widget.AppCompat.Button.Borderless"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:background="?attr/selectableItemBackgroundBorderless"
-		android:text="Animate"
-		app:layout_constraintStart_toStartOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>
