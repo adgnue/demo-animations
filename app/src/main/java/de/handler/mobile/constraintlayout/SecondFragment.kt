@@ -26,11 +26,16 @@ class SecondFragment : BackAwareFragment() {
         val transitionSet = sharedElementEnterTransition as TransitionSet
         transitionSet.addListener(object : TransitionEndListener() {
             override fun onTransitionEnd(transition: Transition) {
-                // augment right button margin animation
                 val animatedConstraints = ConstraintSet()
                 animatedConstraints.clone(constraintLayout)
+
                 TransitionManager.beginDelayedTransition(constraintLayout)
-                animatedConstraints.setMargin(R.id.fragment_second_switch_fragment_button, ConstraintSet.END, 128)
+                // augment right button margin animation
+//                animatedConstraints.setMargin(R.id.fragment_second_switch_fragment_button, ConstraintSet.END, 128)
+
+                // center button vertically animation
+                animatedConstraints.centerVertically(R.id.fragment_second_switch_fragment_button, R.id.fragment_second_circle)
+
                 animatedConstraints.applyTo(constraintLayout)
             }
         })
