@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.constraint.ConstraintSet
-import android.support.v4.content.ContextCompat
 import android.transition.AutoTransition
 import android.transition.Transition
 import android.transition.TransitionManager
@@ -14,7 +13,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import de.handler.mobile.example_constraintlayout.R
-import kotlinx.android.synthetic.main.fragment_second.*
 
 class SecondFragment : BackAwareFragment() {
     private lateinit var circle: CircleView
@@ -39,10 +37,16 @@ class SecondFragment : BackAwareFragment() {
 //                animatedConstraints.centerVertically(R.id.fragment_second_switch_fragment_button, R.id.fragment_second_circle)
 
                 // grow width & height animation
-                fragment_second_switch_fragment_button?.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorPrimary))
-                animatedConstraints.constrainWidth(R.id.fragment_second_switch_fragment_button, 1500)
-                animatedConstraints.constrainWidth(R.id.fragment_second_circle, 2500)
-                animatedConstraints.constrainHeight(R.id.fragment_second_circle, 2500)
+//                fragment_second_switch_fragment_button?.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorPrimary))
+//                animatedConstraints.constrainWidth(R.id.fragment_second_switch_fragment_button, 1500)
+//                animatedConstraints.constrainWidth(R.id.fragment_second_circle, 2500)
+//                animatedConstraints.constrainHeight(R.id.fragment_second_circle, 2500)
+
+                // center in circle animation
+                animatedConstraints.connect(
+                        R.id.fragment_second_switch_fragment_button, ConstraintSet.START,
+                        R.id.fragment_second_constraint_layout, ConstraintSet.START, 16)
+                animatedConstraints.centerVertically(R.id.fragment_second_switch_fragment_button, R.id.fragment_second_circle)
 
                 animatedConstraints.applyTo(constraintLayout)
             }
