@@ -15,7 +15,7 @@ import android.widget.Button
 import de.handler.mobile.example_constraintlayout.R
 
 class SecondFragment : BackAwareFragment() {
-    private lateinit var bubble: BubbleView
+    private lateinit var circle: CircleView
     private lateinit var constraintLayout: ConstraintLayout
 
     private val originalConstraints = ConstraintSet()
@@ -46,9 +46,9 @@ class SecondFragment : BackAwareFragment() {
             return
         }
 
-        bubble = view.findViewById(R.id.fragment_second_bubble)
+        circle = view.findViewById(R.id.fragment_second_circle)
         val switchButton = view.findViewById<Button>(R.id.fragment_second_switch_fragment_button)
-        switchButton.setOnClickListener({ (context as MainActivity).switchFragments(FirstFragment(), arrayOf(bubble, switchButton)) })
+        switchButton.setOnClickListener({ (context as MainActivity).switchFragments(FirstFragment(), arrayOf(circle, switchButton)) })
         constraintLayout = view.findViewById(R.id.fragment_second_constraint_layout)
 
         // preserve original unanimated constraint state

@@ -7,12 +7,12 @@
 	android:layout_height="match_parent"
 	tools:context="de.handler.mobile.constraintlayout.FirstFragment">
 
-	<de.handler.mobile.constraintlayout.BubbleView
-		android:id="@+id/fragment_second_bubble"
+	<de.handler.mobile.constraintlayout.CircleView
+		android:id="@+id/fragment_second_circle"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_marginBottom="8dp"
-		android:transitionName="@string/transition_name_bubble"
+		android:transitionName="@string/transition_name_circle"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"/>
@@ -26,6 +26,6 @@
 		android:background="?attr/selectableItemBackgroundBorderless"
 		android:text="Switch"
 		android:transitionName="@string/transition_name_button"
-		app:layout_constraintEnd_toEndOf="@+id/fragment_second_bubble"/>
+		app:layout_constraintEnd_toEndOf="@+id/fragment_second_circle"/>
 
 </android.support.constraint.ConstraintLayout>

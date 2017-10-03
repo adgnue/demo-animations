@@ -11,7 +11,7 @@ import android.view.View
 
 import de.handler.mobile.example_constraintlayout.R
 
-class BubbleView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : ConstraintLayout(context, attrs, defStyleAttr) {
+class CircleView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : ConstraintLayout(context, attrs, defStyleAttr) {
 	private lateinit var constraintLayout: ConstraintLayout
 	// Original constraintSet to reset bubble to original state
 	private val originalStateConstraintSet = ConstraintSet()
@@ -51,9 +51,9 @@ class BubbleView @JvmOverloads constructor(context: Context, attrs: AttributeSet
 		}
 		TransitionManager.beginDelayedTransition(this, transition)
 		// stretch the bubble with its own guidelines
-		stretchStateConstraintSet.setGuidelinePercent(R.id.view_expenses_guideline_left_background, -0.5f)
-		stretchStateConstraintSet.setGuidelinePercent(R.id.view_expenses_guideline_top_background, -0.99f)
-		stretchStateConstraintSet.setGuidelinePercent(R.id.view_expenses_guideline_right_background, 1.3f)
+		stretchStateConstraintSet.setGuidelinePercent(R.id.view_circle_guideline_left_background, -0.5f)
+		stretchStateConstraintSet.setGuidelinePercent(R.id.view_circle_guideline_top_background, -0.99f)
+		stretchStateConstraintSet.setGuidelinePercent(R.id.view_circle_guideline_right_background, 1.3f)
 		stretchStateConstraintSet.applyTo(constraintLayout)
 	}
 
@@ -67,8 +67,8 @@ class BubbleView @JvmOverloads constructor(context: Context, attrs: AttributeSet
 	}
 
 	private fun init() {
-		val view = View.inflate(context, R.layout.view_bubble, this)
-		constraintLayout = view.findViewById(R.id.view_expenses_bubble_container)
+		val view = View.inflate(context, R.layout.view_circle, this)
+		constraintLayout = view.findViewById(R.id.view_circle_container)
 		// Define animation duration
 		transition.duration = DURATION
 		// Clone original state

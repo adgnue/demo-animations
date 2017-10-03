@@ -14,7 +14,7 @@ class FirstFragment : BackAwareFragment() {
 	private val transitionListener: Transition.TransitionListener = object : Transition.TransitionListener {
 		override fun onTransitionEnd(transition: Transition) {
 			transition.removeListener(this)
-			bubble.shrink(object : Transition.TransitionListener {
+			circle.shrink(object : Transition.TransitionListener {
 				override fun onTransitionEnd(transition1: Transition?) {
 					transitionRunning = false
 					transition.removeListener(this)
@@ -36,7 +36,7 @@ class FirstFragment : BackAwareFragment() {
 	}
 
 	private var transitionRunning: Boolean = false
-	private lateinit var bubble: BubbleView
+	private lateinit var circle: CircleView
 
 	override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		return inflater!!.inflate(R.layout.fragment_first, container, false)
@@ -47,13 +47,13 @@ class FirstFragment : BackAwareFragment() {
 		if (view == null) {
 			return
 		}
-		bubble = view.findViewById(R.id.fragment_first_bubble)
+		circle = view.findViewById(R.id.fragment_first_circle)
 		val replayButton = view.findViewById<Button>(R.id.fragment_first_replay_button)
 		replayButton.setOnClickListener({ animateBubble(true) })
 		animateBubble()
 
 		val switchButton = view.findViewById<Button>(R.id.fragment_first_switch_fragment_button)
-		switchButton.setOnClickListener({ (context as MainActivity).switchFragments(SecondFragment(), arrayOf(bubble, switchButton)) })
+		switchButton.setOnClickListener({ (context as MainActivity).switchFragments(SecondFragment(), arrayOf(circle, switchButton)) })
 	}
 
 
@@ -65,13 +65,13 @@ class FirstFragment : BackAwareFragment() {
 			startAnimation()
 		} else {
 			// Post delayed if starting the app to be able to actually see the animation
-			bubble.postDelayed({
+			circle.postDelayed({
 				startAnimation()
 			}, 2000)
 		}
 	}
 
 	private fun startAnimation() {
-		bubble.grow(transitionListener)
+		circle.grow(transitionListener)
 	}
 }

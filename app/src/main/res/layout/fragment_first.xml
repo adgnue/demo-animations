@@ -4,9 +4,9 @@
 			 android:layout_height="match_parent"
 			 tools:context="de.handler.mobile.constraintlayout.FirstFragment">
 
-	<de.handler.mobile.constraintlayout.BubbleView
-		android:id="@+id/fragment_first_bubble"
-		android:transitionName="@string/transition_name_bubble"
+	<de.handler.mobile.constraintlayout.CircleView
+		android:id="@+id/fragment_first_circle"
+		android:transitionName="@string/transition_name_circle"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"/>
 
