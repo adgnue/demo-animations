@@ -3,10 +3,7 @@ package de.handler.mobile.constraintlayout
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import android.transition.ChangeBounds
-import android.transition.ChangeClipBounds
-import android.transition.ChangeTransform
-import android.transition.TransitionSet
+import android.transition.*
 import android.view.View
 import de.handler.mobile.example_constraintlayout.R
 
@@ -15,10 +12,13 @@ import de.handler.mobile.example_constraintlayout.R
  * {@see <a href="https://github.com/codepath/android_guides/wiki/Animations">Codepath on GitHub}
  */
 class MainActivity : AppCompatActivity() {
+    private lateinit var transition: Transition
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        transition = TransitionInflater.from(this).inflateTransition(R.transition.shared_element_transition)
 
         supportFragmentManager.beginTransaction()
                 .replace(R.id.activity_main_fragment_container, FirstFragment())
@@ -48,13 +48,8 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        val bubbleTransition = TransitionSet()
-                .addTransition(ChangeBounds())
-                .addTransition(ChangeTransform())
-                .addTransition(ChangeClipBounds())
-
-        fragment.sharedElementEnterTransition = bubbleTransition
-        fragment.sharedElementReturnTransition = bubbleTransition
+		fragment.sharedElementEnterTransition = transition
+		fragment.sharedElementReturnTransition = transition
 
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.activity_main_fragment_container, fragment)
