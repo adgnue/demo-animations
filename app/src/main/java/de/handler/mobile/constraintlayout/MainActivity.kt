@@ -10,6 +10,10 @@ import android.transition.TransitionSet
 import android.view.View
 import de.handler.mobile.example_constraintlayout.R
 
+/**
+ * Find out more about the different Android animation apis via
+ * {@see <a href="https://github.com/codepath/android_guides/wiki/Animations">Codepath on GitHub}
+ */
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
