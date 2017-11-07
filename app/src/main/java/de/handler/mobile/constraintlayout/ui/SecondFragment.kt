@@ -1,4 +1,4 @@
-package de.handler.mobile.constraintlayout
+package de.handler.mobile.constraintlayout.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import de.handler.mobile.constraintlayout.animation.TransitionEndListener
 import de.handler.mobile.example_constraintlayout.R
 
 class SecondFragment : BackAwareFragment() {
@@ -20,6 +21,8 @@ class SecondFragment : BackAwareFragment() {
     private lateinit var constraintLayout: ConstraintLayout
 
     private val originalConstraints = ConstraintSet()
+    // Create a standard transition
+    private val transition = AutoTransition()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -114,23 +117,25 @@ class SecondFragment : BackAwareFragment() {
         }
 
         circle = view.findViewById(R.id.fragment_second_circle)
-        val switchButton = view.findViewById<Button>(R.id.fragment_second_switch_fragment_button)
-        switchButton.setOnClickListener({ (context as MainActivity).switchFragments(FirstFragment(), arrayOf(circle, switchButton)) })
         constraintLayout = view.findViewById(R.id.fragment_second_constraint_layout)
 
-        // preserve original unanimated constraint state
+        // Define switch button behaviour
+        val switchButton = view.findViewById<Button>(R.id.fragment_second_switch_fragment_button)
+        switchButton.setOnClickListener({ (context as MainActivity).switchFragments(FirstFragment(), arrayOf(circle, switchButton)) })
+
+        // preserve original constraint state prior to any animation
         originalConstraints.clone(constraintLayout)
     }
 
     override fun onBackPressed(onBackPressedListener: OnBackPressedListener?) {
-        // Create custom standard transition to be able to listen to its end
-        val transition = AutoTransition()
         transition.addListener(object : TransitionEndListener() {
             override fun onTransitionEnd(transition: Transition) {
+                transition.removeListener(this)
                 onBackPressedListener?.onBackPressed()
             }
         })
 
+        // Animate restoring of original state
         TransitionManager.beginDelayedTransition(constraintLayout, transition)
         originalConstraints.applyTo(constraintLayout)
     }

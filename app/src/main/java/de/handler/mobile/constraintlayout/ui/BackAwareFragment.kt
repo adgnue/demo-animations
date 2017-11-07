@@ -1,4 +1,4 @@
-package de.handler.mobile.constraintlayout
+package de.handler.mobile.constraintlayout.ui
 
 import android.support.v4.app.Fragment
 
